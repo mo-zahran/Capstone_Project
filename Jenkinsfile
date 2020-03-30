@@ -8,11 +8,11 @@ pipeline {
   stages {
     stage('Cloning Git') {
       steps {
-        git 'https://github.com/asmirjahic/Capstone_Project.git'
+        git clone 'https://github.com/asmirjahic/Capstone_Project.git'
       }
     }
     stage('Building image') {
-      steps{
+      dir('Capstone_project'){
         script {
           dockerImage = docker.build registry + ":$BUILD_NUMBER"
         }
