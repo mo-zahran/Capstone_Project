@@ -1,23 +1,36 @@
 pipeline {
-    environment {
-        USER_CREDENTIALS = credentials('dockerhub')
+  environment {
+    registry = "asmirjahic/dockerbuild"
+    registryCredential = 'dockerhub'
+    dockerImage = ''
+  }
+  agent any
+  stages {
+    stage('Cloning Git') {
+      steps {
+        git 'https://github.com/asmirjahic/Capstone_Project.git'
+      }
     }
-    agent any
-    stages {
-        stage('Lint HTML') {
-            steps {
-                sh 'tidy -q -e *.html'
-            }
+    stage('Building image') {
+      steps{
+        script {
+          dockerImage = docker.build registry + ":$BUILD_NUMBER"
         }
-        stage('Build Docker Image') {
-            steps {
-                sh './run_docker.sh'
-            }
-        }
-        stage('Push to Docker Hub') {
-            steps {
-                sh './upload_docker.sh $USER_CREDENTIALS_USR $USER_CREDENTIALS_PSW'
-            }
-        }
+      }
     }
+    stage('Deploy Image') {
+      steps{
+        script {
+          docker.withRegistry( '', registryCredential ) {
+            dockerImage.push()
+          }
+        }
+      }
+    }
+    stage('Remove Unused docker image') {
+      steps{
+        sh "docker rmi $registry:$BUILD_NUMBER"
+      }
+    }
+  }
 }
