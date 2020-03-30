@@ -14,7 +14,7 @@ eksctl create cluster \
   --region us-east-2 \
   --name=capstone-project \
   --ssh-access=true \
-  --ssh-public-key=sreejenkins_key \
+  --ssh-public-key=jenkins_key \
   --nodegroup-name=standard-workers \
   --node-type=t3.micro \
   --nodes=3 \
