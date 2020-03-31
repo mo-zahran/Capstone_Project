@@ -9,4 +9,4 @@ spec:
    - name: pod-node-server
      image: asmirjahic/capstone
      ports:
-       - containerPort: 8080
+       - containerPort: 80
