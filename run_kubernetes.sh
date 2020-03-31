@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-kubectl apply -f deployment.yaml
-kubectl apply -f service.yaml 
+/home/ubuntu/bin/kubectl apply -f deployment.yaml
+/home/ubuntu/bin/kubectl apply -f service.yaml 
