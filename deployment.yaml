@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+ name: sample-site
+ labels:
+   app: nginx
+spec:
+ containers:
+   - name: pod-node-server
+     image: asmirjahic/capstone
+     ports:
+       - containerPort: 80
